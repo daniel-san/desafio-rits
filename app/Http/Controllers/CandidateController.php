@@ -8,6 +8,11 @@ use Illuminate\Validation\Rule;
 
 class CandidateController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth', ['except' => ['index']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -77,7 +82,7 @@ class CandidateController extends Controller
      */
     public function show(Candidate $candidate)
     {
-        //
+        return view('candidates.show')->with('candidate', $candidate);
     }
 
     /**
