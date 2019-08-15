@@ -11,6 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        DB::table('users')->delete();
+        $admin = new App\User();
+        $admin->name = 'Admin Teste';
+        $admin->email = 'admin@admin.com';
+        $admin->password = Hash::make('qwerty');
+        $admin->save();
+
     }
 }

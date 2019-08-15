@@ -12,9 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Auth::routes();
+// Disabling the register route
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
