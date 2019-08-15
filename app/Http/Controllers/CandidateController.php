@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Candidate;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CandidateController extends Controller
 {
@@ -24,7 +25,7 @@ class CandidateController extends Controller
      */
     public function create()
     {
-        //
+        return view('index');
     }
 
     /**
@@ -35,7 +36,37 @@ class CandidateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'name' => 'required',
+            'email' => 'required|string|email',
+            'motivation' => 'nullable',
+            'linkedinUrl' => 'required',
+            'githubUrl' => 'required',
+            'english' => [
+                'required',
+                Rule::in(['starter', 'intermediate', 'advanced'])
+            ],
+            'salary' => 'required|numeric',
+            'resume' => 'required|mimes:pdf,doc'
+        ]);
+
+        $candidate = new Candidate();
+        $candidate->name = $request->name;
+        $candidate->email = $request->email;
+        $candidate->motivation = $request->motivation;
+        $candidate->linkedin_url = $request->linkedinUrl;
+        $candidate->github_url = $request->githubUrl;
+        $candidate->english = $request->english;
+        $candidate->salary = $request->salary;
+
+        $resume_path = $request->file('resume')->store('public/resumes');
+        $resume_path = str_replace('public/resumes/','', $resume_path);
+
+        $candidate->resume = $resume_path;
+
+        $candidate->save();
+
+        return redirect('/')->with('success', "Seus dados foram recebidos com sucesso");
     }
 
     /**

@@ -15,6 +15,14 @@ class CreateCandidatesTable extends Migration
     {
         Schema::create('candidates', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('motivation', 1023);
+            $table->string('linkedin_url');
+            $table->string('github_url');
+            $table->string('english');
+            $table->float('salary');
+            $table->string('resume');
             $table->timestamps();
         });
     }
