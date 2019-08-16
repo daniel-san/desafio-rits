@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->delete();
         $admin = new App\User();
-        $admin->name = 'Admin Teste';
-        $admin->email = 'admin@admin.com';
-        $admin->password = Hash::make('qwerty');
+        $admin->name = env('ADMIN_NAME', 'Admin');
+        $admin->email = env('ADMIN_EMAIL','admin@admin.com');
+        $admin->password = Hash::make(env('ADMIN_PASSWORD', 'qwerty'));
         $admin->save();
 
     }

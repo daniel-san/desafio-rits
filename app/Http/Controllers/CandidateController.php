@@ -10,7 +10,7 @@ class CandidateController extends Controller
 {
 
     public function __construct() {
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth', ['except' => ['index', 'store']]);
     }
 
     /**
@@ -117,5 +117,23 @@ class CandidateController extends Controller
     public function destroy(Candidate $candidate)
     {
         //
+    }
+
+    public function botData(){
+         // Acessing the last 3 registered candidates
+        $mostRecentCandidates = \Candidate::select('*')
+                    ->orderBy('id', 'desc')
+                    ->take(3)
+                    ->get();
+        // Getting the total of candidates
+        $totalCandidates = \Candidate::select('*')->count();
+
+        // Getting the old candidate count that was set in the last run
+        $oldCandidatesCount = \Cache::get('total_candidates', function () {
+            \Candidate::select('*')->count();
+        });
+
+        // Calculating the number of new registered candidates since the last email sent
+        $newCandidatesCount = $totalCandidates - $oldCandidatesCount;
     }
 }

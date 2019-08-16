@@ -4,6 +4,8 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Candidate;
+use App\Mail\NotifyAdmin;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +26,22 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // Getting the total of candidates
+        $totalCandidates = Candidate::select('*')->count();
+
+        // Getting the old candidate count that was set in the last run
+        $oldCandidatesCount = \Cache::get('total_candidates', $totalCandidates);
+
+        // Calculating the number of new registered candidates since the last email sent
+        $newCandidatesCount = $totalCandidates - $oldCandidatesCount;
+
+        // Sending email to admin
+        \Mail::to(env('ADMIN_EMAIL'))->send(
+            new NotifyAdmin(env('ADMIN_NAME'), $newCandidatesCount)
+        );
+
+        // Updating the counter of total candidates
+        \Cache::forever('total_candidates', $totalCandidates);
     }
 
     /**

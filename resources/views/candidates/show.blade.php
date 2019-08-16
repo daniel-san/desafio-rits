@@ -2,7 +2,7 @@
 
 @section('content')
     @php
-        $english_levels = [
+        $englishLevels = [
             "starter" => "Iniciante",
             "intermediate" => "Intermediário",
             "advanced" => "Avançado"];
@@ -27,7 +27,7 @@
 
             <div class="candidate-data">
                 <h3>Nível de Inglês</h3>
-                <p>{{ $english_levels[$candidate->english] }}</p>
+                <p>{{ $englishLevels[$candidate->english] }}</p>
             </div>
 
             <div class="candidate-data">
@@ -38,8 +38,8 @@
             <div class="candidate-data">
                 <h3>Links:</h3>
                 <div class=" btn-group">
-                    <a class="btn btn-primary" href="{{ $candidate->linkedin_url }}">LinkedIn</a>
-                    <a class="btn btn-dark" href="{{ $candidate->github_url }}">Github</a>
+                    <a class="btn btn-primary" href="{{ $candidate->linkedin_url }}" target="_blank">LinkedIn</a>
+                    <a class="btn btn-dark" href="{{ $candidate->github_url }}" target="_blank">Github</a>
                     <a class="btn btn-success" href="{{ asset("storage/resumes/{$candidate->resume}") }}" target="_blank">Currículo</a>
                 </div>
             </div>
