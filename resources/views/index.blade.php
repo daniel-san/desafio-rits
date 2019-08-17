@@ -1,8 +1,42 @@
 @extends('layouts.vagaform')
 
 @section('content')
-<div class="jumbotron">
+<div class="jumbotron formhero">
 
+    <div class="col justify-content-center formhero-calltoaction">
+        <p class="formhero-calltoaction-city">Natal/RN - Brasil</p>
+        <h2 class="formhero-calltoaction-function">Desenvolvedor PHP</h2>
+        <a class="btn btn-rounded btn-green formhero-calltoaction-action" href="#">Candidate-se</a>
+    </div>
+
+    <div class="row col-md-12 formhero-section">
+        <div class="col-md-4 formhero-textbox">
+            <h6>Na função de Desenvolvedor Frontend aqui na Rits, você vai:</h6>
+            <ul>
+                <li>Transformar layouts (XD e Photoshop) em montagens responsivas utilizando HTML + CSS + JS;</li>
+                <li>Integrar montagem com APIs desenvolvidas por outras equipes;</li>
+                <li>Manter e melhorar a base de código existente corrigindo bugs e refatorando código quando necessário;</li>
+            </ul>
+        </div>
+
+        <div class="col-md-4 formhero-textbox">
+            <h6>Procuramos alguém que</h6>
+            <ul>
+                <li>Possua habilidades arquiteturais para desenvolvimento de software;</li>
+                <li>Goste de trabalhar em equipe;</li>
+                <li>Seja focado, proativo, tenha boa comunicação e relacionamento interpessoal;</li>
+            </ul>
+        </div>
+
+        <div class="col-md-4 formhero-textbox">
+            <h6>No dia a dia na Rits, você trabalhará também com:</h6>
+            <ul>
+                <li>Wordpress e sistemas em PHP em geral;</li>
+                <li>Webpack e Bootstrap;</li>
+                <li>Frameworks javascript modernos (Vue2, React);</li>
+            </ul>
+        </div>
+    </div>
 </div>
 
 
@@ -108,6 +142,19 @@
         </form>
     </div>
 </div>
+
+<footer class="container vagaform-footer row">
+    <div class="col-md-4 vagaform-footer-textbox">
+        <img src="" alt="" class="vagaform-footer-logo">
+    </div>
+    <div class="col-md-4 vagaform-footer-textbox">
+        <h5>Rits Tecnologia. Todos os direitos reservados</h5>
+        <p>Desenvolver e evoluir soluções digitais para negócios que acreditam na tecnologia como força propulsora</p>
+    </div>
+    <div class="col-md-4 vagaform-footer-textbox">
+        <p class="vagaform-footer-url">Rits.com.br</p>
+    </div>
+</footer>
 @push('scripts')
     <script src="{{ asset("js/vagaform.js") }}"></script>
 @endpush

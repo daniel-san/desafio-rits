@@ -10671,12 +10671,84 @@ a.text-dark:focus {
 }
 
 .formhero {
-  width: 1920px;
+  width: 100%;
+  max-width: 1920px;
   height: 700px;
-  background: url(/images/alex-kotliarskyi-361081-unsplash.jpg?74199f40b5efabbcbbbc539fe20b6c7d);
+  border-radius: 0;
+  background-position: center;
+  color: rgba(46, 34, 54, 0.7);
+  background-image: linear-gradient(rgba(46, 34, 54, 0.95), rgba(46, 34, 54, 0.95)), url(/images/alex-kotliarskyi-361081-unsplash.jpg?74199f40b5efabbcbbbc539fe20b6c7d);
+}
+
+.formhero-section {
+  margin-left: 5px;
+}
+
+.formhero-textbox {
+  color: white;
+}
+
+.formhero-textbox h6 {
+  font-weight: 600;
+}
+
+.formhero-calltoaction {
+  text-align: center;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.formhero-calltoaction-city {
+  margin-top: 20px;
+  color: #4eef61;
+}
+
+.formhero-calltoaction-function {
+  font-size: 46px;
+  margin-bottom: 46px;
+}
+
+.formhero-calltoaction-action {
+  margin-bottom: 42px;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 176px;
+  height: 40px;
+  padding-top: 8px;
 }
 
 .vagaform div.custom-file label:after {
   content: none;
+}
+
+.vagaform-navbar {
+  background-color: transparent;
+  position: absolute;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.vagaform-navbar .nav-link {
+  color: white;
+  font-weight: 600;
+  margin: 0 5px;
+}
+
+.vagaform-navbar .nav-link.btn-green {
+  color: black;
+  width: 176px;
+  height: 40px;
+}
+
+.vagaform-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  background-color: #f6f6f7;
+}
+
+.vagaform-footer-textbox {
+  margin-top: 44px;
 }
 
