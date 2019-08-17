@@ -10699,7 +10699,7 @@ a.text-dark:focus {
 }
 
 .formhero-calltoaction-city {
-  margin-top: 20px;
+  margin-top: 65px;
   color: #4eef61;
 }
 
@@ -10742,13 +10742,20 @@ a.text-dark:focus {
 
 .vagaform-footer {
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 150px;
   background-color: #f6f6f7;
+  margin-top: 100px;
+  padding-bottom: 20px;
 }
 
 .vagaform-footer-textbox {
   margin-top: 44px;
+  text-align: center;
+}
+
+.vagaform-footer-textbox .vagaform-footer-url {
+  color: #4eef61;
+  font-weight: 600;
 }
 

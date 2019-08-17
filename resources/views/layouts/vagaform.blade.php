@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md vagaform-navbar">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset("images/logo-white.png") }}" alt="Rits logo">
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

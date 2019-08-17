@@ -143,9 +143,9 @@
     </div>
 </div>
 
-<footer class="container vagaform-footer row">
+<footer class="container-fluid vagaform-footer row">
     <div class="col-md-4 vagaform-footer-textbox">
-        <img src="" alt="" class="vagaform-footer-logo">
+        <img src="{{ asset("images/logo-sm.png") }}" alt="" class="vagaform-footer-logo">
     </div>
     <div class="col-md-4 vagaform-footer-textbox">
         <h5>Rits Tecnologia. Todos os direitos reservados</h5>

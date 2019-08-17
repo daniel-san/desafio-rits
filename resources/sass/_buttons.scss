@@ -1,6 +1,6 @@
 .btn {
     &-green {
-        background-color: #4eef61;
+        background-color: $main-color;
         border: none;
 
         &:hover {
@@ -14,7 +14,7 @@
         color: black;
 
         &-file-upload {
-            border-color: #4eef61;
+            border-color: $main-color;
             background-color: white;
             text-align: center;
 
