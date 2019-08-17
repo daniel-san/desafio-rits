@@ -26,22 +26,24 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // Getting the total of candidates
-        $totalCandidates = Candidate::select('*')->count();
+        $schedule->call(function(){
+            // Getting the total of candidates
+            $totalCandidates = Candidate::select('*')->count();
 
-        // Getting the old candidate count that was set in the last run
-        $oldCandidatesCount = \Cache::get('total_candidates', $totalCandidates);
+            // Getting the old candidate count that was set in the last run
+            $oldCandidatesCount = \Cache::get('total_candidates', $totalCandidates);
 
-        // Calculating the number of new registered candidates since the last email sent
-        $newCandidatesCount = $totalCandidates - $oldCandidatesCount;
+            // Calculating the number of new registered candidates since the last email sent
+            $newCandidatesCount = $totalCandidates - $oldCandidatesCount;
 
-        // Sending email to admin
-        \Mail::to(env('ADMIN_EMAIL'))->send(
-            new NotifyAdmin(env('ADMIN_NAME'), $newCandidatesCount)
-        );
+            // Sending email to admin
+            \Mail::to(env('ADMIN_EMAIL'))->send(
+                new NotifyAdmin(env('ADMIN_NAME'), $newCandidatesCount)
+            );
 
-        // Updating the counter of total candidates
-        \Cache::forever('total_candidates', $totalCandidates);
+            // Updating the counter of total candidates
+            \Cache::forever('total_candidates', $totalCandidates);
+        })->twiceDaily(12, 18);
     }
 
     /**
