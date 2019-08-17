@@ -10644,14 +10644,39 @@ a.text-dark:focus {
   }
 }
 
-.rounded {
+.btn-green {
+  background-color: #4eef61;
+  border: none;
+}
+
+.btn-green:hover {
+  background-color: #4eef84;
+  color: black;
+}
+
+.btn-rounded {
   border-radius: 10rem !important;
   color: black;
+}
+
+.btn-rounded-file-upload {
+  border-color: #4eef61;
+  background-color: white;
+  text-align: center;
+}
+
+.btn-rounded-file-upload:hover {
+  cursor: pointer;
+  background-color: #f8f8f8;
 }
 
 .formhero {
   width: 1920px;
   height: 700px;
   background: url(/images/alex-kotliarskyi-361081-unsplash.jpg?74199f40b5efabbcbbbc539fe20b6c7d);
+}
+
+.vagaform div.custom-file label:after {
+  content: none;
 }
 

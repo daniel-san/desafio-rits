@@ -6,7 +6,7 @@
 </div>
 
 
-<div class="container">
+<div class="container vagaform">
     <div class="row justify-content-center">
         @if(count($errors) > 0)
             @foreach($errors->all() as $error)
@@ -90,15 +90,17 @@
             <div class="form-group row">
                 <div class="col-md-5 mx-auto">
                     <div class="custom-file">
-                        <input type="file" class="custom-file" name="resume" id="resume">
-                        <label class="custom-file-label" for="resume">Escolha o arquivo</label>
+                        <input type="file" class="custom-file btn-rounded" name="resume" id="resume">
+                        <label class="custom-file-label btn-rounded btn-rounded-file-upload" for="resume">
+                            <span id="upload-filename">Escolha o arquivo</span>
+                        </label>
                     </div>
                 </div>
             </div>
 
             <div class="form-group row mb-0 mx-auto">
                 <div class="col-md-12 text-center">
-                    <button type="submit" class="col-md-7 btn btn-success btn-block rounded mx-auto">
+                    <button type="submit" class="col-md-7 btn btn-success btn-block btn-rounded btn-green mx-auto">
                         {{ __('Enviar') }}
                     </button>
                 </div>
@@ -106,4 +108,7 @@
         </form>
     </div>
 </div>
+@push('scripts')
+    <script src="{{ asset("js/vagaform.js") }}"></script>
+@endpush
 @endsection
