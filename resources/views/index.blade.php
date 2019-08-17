@@ -1,11 +1,9 @@
 @extends('layouts.vagaform')
 
 @section('content')
-<section>
-    <div class="container">
+<div class="jumbotron">
 
-    </div>
-</section>
+</div>
 
 
 <div class="container">
@@ -100,7 +98,7 @@
 
             <div class="form-group row mb-0 mx-auto">
                 <div class="col-md-12 text-center">
-                    <button type="submit" class="col-md-7 btn btn-success btn-block mx-auto">
+                    <button type="submit" class="col-md-7 btn btn-success btn-block rounded mx-auto">
                         {{ __('Enviar') }}
                     </button>
                 </div>
