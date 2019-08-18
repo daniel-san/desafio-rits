@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
             $totalCandidates = Candidate::select('*')->count();
 
             // Getting the old candidate count that was set in the last run
-            $oldCandidatesCount = \Cache::get('total_candidates', $totalCandidates);
+            $oldCandidatesCount = \Cache::get('total_candidates', 0);
 
             // Calculating the number of new registered candidates since the last email sent
             $newCandidatesCount = $totalCandidates - $oldCandidatesCount;
