@@ -124,7 +124,7 @@ class CandidateController extends Controller
 
     public function sendBotData(){
          // Acessing the last 3 registered candidates
-        $mostRecentCandidates = Candidate::select('name')
+        $mostRecentCandidates = Candidate::select('email')
                     ->orderBy('id', 'desc')
                     ->take(3)
                     ->get();
