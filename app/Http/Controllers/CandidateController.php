@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Candidate;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use GuzzleHttp\Client;
 
 class CandidateController extends Controller
 {
@@ -71,6 +72,8 @@ class CandidateController extends Controller
 
         $candidate->save();
 
+        $this->sendBotData();
+
         return redirect('/')->with('success', "Seus dados foram recebidos com sucesso");
     }
 
@@ -119,21 +122,24 @@ class CandidateController extends Controller
         //
     }
 
-    public function botData(){
+    public function sendBotData(){
          // Acessing the last 3 registered candidates
-        $mostRecentCandidates = \Candidate::select('*')
+        $mostRecentCandidates = Candidate::select('name')
                     ->orderBy('id', 'desc')
                     ->take(3)
                     ->get();
+
         // Getting the total of candidates
-        $totalCandidates = \Candidate::select('*')->count();
+        $totalCandidates = Candidate::select('*')->count();
 
-        // Getting the old candidate count that was set in the last run
-        $oldCandidatesCount = \Cache::get('total_candidates', function () {
-            \Candidate::select('*')->count();
-        });
+        $json_data = [
+            "recent_candidates" => $mostRecentCandidates->toArray(),
+            "total_candidates_count" => $totalCandidates,
+        ];
 
-        // Calculating the number of new registered candidates since the last email sent
-        $newCandidatesCount = $totalCandidates - $oldCandidatesCount;
+        $client = new Client();
+
+        //send data to update bot
+        $response = $client->post(env('BOT_UPDATE_URL'), ["json" => $json_data]);
     }
 }
