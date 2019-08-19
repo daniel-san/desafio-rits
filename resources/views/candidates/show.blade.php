@@ -21,12 +21,17 @@
             </div>
 
             <div class="candidate-data">
+                <h3>Telefone:</h3>
+                <p>{{ $candidate->telephone }}</p>
+            </div>
+
+            <div class="candidate-data">
                 <h3>Motivação:</h3>
                 <p>{{ $candidate->motivation }}</p>
             </div>
 
             <div class="candidate-data">
-                <h3>Nível de Inglês</h3>
+                <h3>Nível de Inglês:</h3>
                 <p>{{ $englishLevels[$candidate->english] }}</p>
             </div>
 
