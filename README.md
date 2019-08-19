@@ -5,7 +5,7 @@ para uma vaga de trabalho.
 
 Para começar, criei um projeto padrão do Laravel
 utilizando o composer. Para a base de dados utilizada no desenvolvimento, decidi utilizar um
-container do docker rodando o banco de dados PostgreSQL.
+container do Docker rodando o banco de dados PostgreSQL.
 O container do PostgreSQL foi criado usando o seguinte comando:
 
 ```
@@ -27,10 +27,10 @@ mais específicos.
 Comecei primeiro executando tarefas que precisariam ser
 feitas de qualquer maneira:
 
--   Preencher os dados necessários no arquivo de ambiente .env:
+-   Preencher os dados necessários no arquivo de ambiente `.env`:
     -   Credenciais de conexão ao banco de dados;
     -   Credenciais para envio de emails;
--   Criar os layouts padrão de autênticação;
+-   Criar o layout padrão de autênticação;
 -   Linkar a pasta storage para guardarmos os currículos enviados pelos candidatos.
 
 Logo em seguida, criei os layouts de autênticação e linkei a pasta de storage
@@ -41,7 +41,7 @@ php artisan make:auth
 php artisan storage:link
 ```
 
-Criei uma classe de modelo para os candidados chamada Candidate.
+Criei uma classe de modelo para os candidados chamada `Candidate`.
 Utilizei o artisan para criar o model, o controller e a migration necessária para a
 tabela no banco de dados:
 
@@ -58,11 +58,11 @@ layout fornecido, e executei a migration para criar as tabelas no banco de dados
 ### Implementação do controller
 
 Para fins de testar o controller, criei inicialmente um layout simples para a página do
-formulário do candidato, e implementei o método store no CandidateController para
+formulário do candidato, e implementei o método `store` no `CandidateController` para
 salvar os dados do candidato no banco de dados. Validação foi implementada nos campos
 enviados para o controller.
 
-Também implementei o método index para ser utilizado no dashboard do administrador,
+Também implementei o método `index` para ser utilizado no dashboard do administrador,
 acessando todos os candidatos no banco de dados e os retornando para serem exibidos na view.
 
 ### Dashboard do Admin
@@ -75,7 +75,7 @@ os dados do candidato.
 Para simplificar a criação de um usuário admin, criei um seeder que cria um
 usuário como admin para a aplicação, já que decidi desavitar a rota `/register`.
 
-Os dados do usuário admin podem ser setados a partir do arquivo .env. Por exemplo:
+Os dados do usuário admin podem ser setados a partir do arquivo `.env`. Por exemplo:
 
 ```
 ADMIN_NAME=Daniel
@@ -97,7 +97,7 @@ Com o intuito de simplificar o cálculo de quantos candidatos se registraram em
 determinados intervalos e para
 a criação do bot do Telegram, ativei o uso de
 cache via banco de dados. Para isso modifiquei o valor de CACHE_DRIVER para 'database'
-no arquivo .env:
+no arquivo `.env`:
 
 ```
 CACHE_DRIVER=database
@@ -171,9 +171,15 @@ no host que eu tinha disponível, o bot funciona da seguinte maneira:
 -   Toda vez que um usuário se candidata à vaga, um snapshot do número de usuários e os emails dos 3 últimos inscritos são enviados ao servidor do bot;
 -   Quando um cliente executa o comand /vagarits em uma conversa com o bot, este acessa o snapshot recebido, e envia uma mensagem ao cliente do Telegram informando quantos candidatos estão cadastrados e quais foram os 3 ultimos e-mails.
 
-O bot responde somente ao comando `/vagarits`.
+O endereço para onde é enviado o snapshot dos dados pode ser definido no
+arquivo `.env` através do campo BOT_UPDATE_URL, campo este que já está setado no arquivo de exemplo `.env.example`.
 
-O ideal seria configurar o código do bot dentro da própria aplicação, utilizando do arquivo `routes/api.php` para configurar os endpoints utilizados pelo bot.
+O bot já está ativo, e responde somente ao comando `/vagarits`.
+
+Se não fosse pelas restrições quanto ao deploy, o ideal seria configurar
+o código do bot
+dentro da própria aplicação, utilizando do arquivo `routes/api.php` para
+configurar os endpoints utilizados pelo bot e os dados enviados por ele.
 
 O código utilizado para o bot se encontra no seguinte [repositório](https://github.com/daniel-san/vagarits-bot), e o bot em si pode ser acessado por [aqui](https://t.me/CandNotifyBot).
 
@@ -184,9 +190,9 @@ utilizei durante o desenvolvimento, sem nenhum tipo de orquestramento ou uso do
 docker-compose.
 
 Para o projeto, estudei o que podia e montei um `Dockerfile` e um `docker-compose.yml`
-para tentar enpacotar a aplicação inteira em um container, porém não fui muito bem
+para tentar empacotar a aplicação inteira em um container, porém não fui muito bem
 sucedido, conseguindo acessar apenas o container do postgres, e não o container
-onde a aplicação roda. Os arquivos estão disponíveis no repositório como uma forma
+onde a aplicação executa. Os arquivos estão disponíveis no repositório como uma forma
 de registro.
 
 # Manual de configuração
@@ -199,12 +205,12 @@ aplicação funcione:
     ```
     composer install
     ```
--   Copiar o arquivo .env.example para .env;
--   Executar o seguinte comando para setar a chave da aplicação no arquivo .env:
+-   Copiar o arquivo `.env.example` para `.env`;
+-   Executar o seguinte comando para setar a chave da aplicação no arquivo `.env`:
     ```
     php artisan key:generate
     ```
--   Preencher o arquivo .env com os dados referentes ao banco de dados;
+-   Preencher o arquivo `.env` com os dados referentes ao banco de dados;
     -   Como exemplo, durante o desenvolvimento utilizei os seguintes dados:
         ```
         DB_CONNECTION=pgsql
@@ -222,7 +228,7 @@ aplicação funcione:
     ```
     php artisan storage:link
     ```
--   Preencher no arquivo .env os dados referentes ao admin da aplicação;
+-   Preencher no arquivo `.env` os dados referentes ao admin da aplicação;
     -   Os campos são: ADMIN_NAME, ADMIN_EMAIL, ADMIN_PASSWORD;
     -   Utilizar um email real para o campo ADMIN_EMAIL. O email do admin será o endereço de email de destino para as mensagens que são enviadas pela aplicação;
 -   Executar o seguinte comando para criar o usuário admin:
@@ -265,13 +271,13 @@ Um bot para o Telegram foi desenvolvido de acordo com o pedido no desafio. Dêvi
 O bot pode ser acessado por [aqui](https://t.me/CandNotifyBot).
 Para que o bot funcione, é necessário os seguintes passos:
 
--   No arquivo .env, existe um campo chamado BOT_UPDATE_URL que aponta para um endpoint onde o servidor do bot está localizado. Essa url recebe um snapshot do total de candidatos inscritos e os 3 ultimos candidatos, utilizando esses dados para formular uma resposta para usuários do bot;
--   No arquivo .env.example, este campo já foi setado por padrão;
+-   No arquivo `.env`, existe um campo chamado BOT_UPDATE_URL que aponta para um endpoint onde o servidor do bot está localizado. Essa url recebe um snapshot do total de candidatos inscritos e os 3 ultimos candidatos, utilizando esses dados para formular uma resposta para usuários do bot;
+-   No arquivo `.env.example`, este campo já foi setado por padrão;
 -   Ao iniciar uma conversa com o bot, utilizar o comando /vagarits para receber as informações sobre o número de candidatos e o email dos 3 candidatos mais recentes.
 
 # Docker
 
-O Dockerfile e o docker-compose.yml descrevem como subir uma versão em container da
+O `Dockerfile` e o `docker-compose.yml` descrevem como subir uma versão em container da
 aplicação.
 
 Porém, dêvido à minha falta de experiência com
@@ -281,5 +287,5 @@ embora o container do postgres que está configurado no
 docker-compose esteja sendo criado e funcionando sem
 problemas.
 
-Os arquivos estão dispoíveis no repositório para fins de
+Os arquivos estão disponíveis no repositório para fins de
 registro.
