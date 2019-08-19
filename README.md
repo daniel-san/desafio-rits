@@ -6,6 +6,11 @@ para uma vaga de trabalho.
 Para começar, criei um projeto padrão do Laravel
 utilizando o composer. Para a base de dados utilizada no desenvolvimento, decidi utilizar um
 container do docker rodando o banco de dados PostgreSQL.
+O container do PostgreSQL foi criado usando o seguinte comando:
+
+```
+docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+```
 
 Tendo o projeto base, e um banco de dados ativo, iniciei o desenvolvimento.
 Decidi começar primeiro pelo backend da aplicação, e focar no layout das páginas
@@ -55,10 +60,10 @@ layout fornecido, e executei a migration para criar as tabelas no banco de dados
 Para fins de testar o controller, criei inicialmente um layout simples para a página do
 formulário do candidato, e implementei o método store no CandidateController para
 salvar os dados do candidato no banco de dados. Validação foi implementada nos campos
-enviados para o controller
+enviados para o controller.
 
 Também implementei o método index para ser utilizado no dashboard do administrador,
-acessando todos os candidatos no banco de dados.
+acessando todos os candidatos no banco de dados e os retornando para serem exibidos na view.
 
 ### Dashboard do Admin
 
@@ -68,7 +73,7 @@ dos candidatos registrados até o momento, apresentando um botão para visualiza
 os dados do candidato.
 
 Para simplificar a criação de um usuário admin, criei um seeder que cria um
-usuário como admin para a aplicação.
+usuário como admin para a aplicação, já que decidi desavitar a rota `/register`.
 
 Os dados do usuário admin podem ser setados a partir do arquivo .env. Por exemplo:
 
@@ -119,7 +124,7 @@ php artisan make:mail --markdown=NotifyAdmin
 ```
 
 O template de email foi alterado de acordo para exibir os dados referentes ao
-número de candidatos que se registraram.
+número de candidatos que se registraram, e está contido no arquivo `resources/views/mail/notify-admin.blade.php`.
 
 Logo em seguida modifiquei o arquivo `app/Console/Kernel.php`, e criei um schedule
 configurado para ser executado diariamente as 12:00 e 18:00 horas.
@@ -129,12 +134,13 @@ salvo em cache, e envia um email para o admin informando quantos são os candida
 novo valor referente ao número de candidatos.
 
 Dentro do ambiente de desenvolvimento não foi utilizado o crontab para efetuar os testes
-do schedule para envio de emails, mas foi testado manualmente e tabmém levado em consideração na seção de
+do schedule para envio de emails, mas foi testado manualmente e também levado em consideração na seção de
 configuração do projeto mais adiante.
 
 ## Frontend
 
-O layout da página de inscrição dos candidatos foi feito em um arquivo separado do layout das outras páginas. Foi utilizado SASS para gerar o css utilizado na página.
+O layout da página de inscrição dos candidatos foi feito em um arquivo separado do layout das outras páginas.
+Foi utilizado SASS para gerar os estilos da página, junto com componentes disponíveis na biblioteca Bootstrap.
 Os estilos para a página estão contidos no arquivo `resources/sass/_vagaform.scss`, e foram
 compilados usando webpack. Para efetuar a compilação, deve-se executar os seguintes comandos:
 
@@ -149,7 +155,15 @@ A validação dos campos e parte da reatividade de alguns elementos foi codifica
 
 Seguindo a documentação do Telegram, consegui configurar um bot que envia a quantidade de candidatos e os emails dos 3 últimos candidatos.
 
-O bot responde somente ao comando /vagarits.
+A primeira coisa que precisou ser feita foi criar um bot pelo [BotFather](https://telegram.me/botfather),
+e obter com ele a chave de api do bot.
+Depois, foi necessário setar o webhook do bot, por exemplo, usando o seguinte comando:
+
+```
+curl -F "url=<webhook_url>" https://api.telegram.org/bot<api_key>/setWebhook
+```
+
+Dessa forma o bot já está pronto para interagir com clientes e enviar mensagens.
 
 Dêvido ao bot não poder acessar endereços locais (localhost, etc), e a algumas restrições
 no host que eu tinha disponível, o bot funciona da seguinte maneira:
@@ -157,10 +171,11 @@ no host que eu tinha disponível, o bot funciona da seguinte maneira:
 -   Toda vez que um usuário se candidata à vaga, um snapshot do número de usuários e os emails dos 3 últimos inscritos são enviados ao servidor do bot;
 -   Quando um cliente executa o comand /vagarits em uma conversa com o bot, este acessa o snapshot recebido, e envia uma mensagem ao cliente do Telegram informando quantos candidatos estão cadastrados e quais foram os 3 ultimos e-mails.
 
+O bot responde somente ao comando `/vagarits`.
+
 O ideal seria configurar o código do bot dentro da própria aplicação, utilizando do arquivo `routes/api.php` para configurar os endpoints utilizados pelo bot.
 
-O código utilizado para o bot se encontra no seguinte [repositório](https://github.com/daniel-san/vagarits-bot).
-O bot pode ser acessado por [aqui](https://t.me/CandNotifyBot).
+O código utilizado para o bot se encontra no seguinte [repositório](https://github.com/daniel-san/vagarits-bot), e o bot em si pode ser acessado por [aqui](https://t.me/CandNotifyBot).
 
 # Manual de configuração
 
@@ -207,7 +222,16 @@ aplicação funcione:
 -   Preencher os dados referentes ao envio de email da aplicação:
     -   MAIL_USERNAME, MAIL_PASSWORD, MAIL_ENCRYPTION, MAIL_HOST, MAIL_DRIVER, e MAIL_PORT;
     -   Nos testes locais foram utilizados o servidor SMTP do GMail;
--   Para que a aplicação envie os emails nos horários corretos e de forma automática, deve-se adicionar a seguinte entrada no crontab para fazer este trabalho, substituindo 'path-to-your-project' pelo caminho até o projeto:
+    -   Exemplo:
+        ```
+        MAIL_DRIVER=smtp
+        MAIL_HOST=smtp.gmail.com
+        MAIL_PORT=587
+        MAIL_USERNAME=dlsbdaniel@gmail.com
+        MAIL_PASSWORD=******
+        MAIL_ENCRYPTION=tls
+        ```
+-   Para que a aplicação envie os emails nos horários corretos e de forma automática, deve-se adicionar a seguinte entrada no crontab para fazer este trabalho. Em ambientes Linux, isso pode ser feito executando o comando `crontab -e` e adicionando a linha abaixo, substituindo `path-to-your-project` pelo caminho até o projeto:
     ```
     * * * * *  cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
     ```
