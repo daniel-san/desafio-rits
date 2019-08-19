@@ -10759,7 +10759,20 @@ a.text-dark:focus {
   font-weight: 600;
 }
 
+.input-field {
+  height: 45px;
+}
+
+.input-field-label {
+  font-size: 0.6rem;
+  position: absolute;
+  top: -7px;
+  left: 13px;
+  font-weight: 600;
+}
+
 .field-error {
+  margin-bottom: 15px;
   font-size: 0.6rem;
   color: red;
   font-weight: 600;

@@ -87,7 +87,7 @@
                     <span class="field-error" id="email-error"></span>
                 </div>
                 <div class="col-md-7 mx-auto">
-                    <label for="telephone" class="col-md-6 col-form-label text-md-left">{{ __('Telefone(com DDD') }}</label>
+                    <label for="telephone" class="col-md-6 col-form-label text-md-left">{{ __('Telefone(com DDD)') }}</label>
                     <input id="telephone" type="telephone" class="form-control" name="telephone" value="{{ old('telephone') }}" required autocomplete="telephone" autofocus>
                     <span class="field-error" id="telephone-error"></span>
                 </div>
