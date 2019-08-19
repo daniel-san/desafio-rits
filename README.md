@@ -177,6 +177,18 @@ O ideal seria configurar o código do bot dentro da própria aplicação, utiliz
 
 O código utilizado para o bot se encontra no seguinte [repositório](https://github.com/daniel-san/vagarits-bot), e o bot em si pode ser acessado por [aqui](https://t.me/CandNotifyBot).
 
+## Utilização do Docker
+
+O meu conhecimento de Docker se resumia a somente utilizar containers, como o do Postgres que
+utilizei durante o desenvolvimento, sem nenhum tipo de orquestramento ou uso do
+docker-compose.
+
+Para o projeto, estudei o que podia e montei um `Dockerfile` e um `docker-compose.yml`
+para tentar enpacotar a aplicação inteira em um container, porém não fui muito bem
+sucedido, conseguindo acessar apenas o container do postgres, e não o container
+onde a aplicação roda. Os arquivos estão disponíveis no repositório como uma forma
+de registro.
+
 # Manual de configuração
 
 Após clonar o projeto do github, deve-se executar os seguintes passos para que a
@@ -256,3 +268,18 @@ Para que o bot funcione, é necessário os seguintes passos:
 -   No arquivo .env, existe um campo chamado BOT_UPDATE_URL que aponta para um endpoint onde o servidor do bot está localizado. Essa url recebe um snapshot do total de candidatos inscritos e os 3 ultimos candidatos, utilizando esses dados para formular uma resposta para usuários do bot;
 -   No arquivo .env.example, este campo já foi setado por padrão;
 -   Ao iniciar uma conversa com o bot, utilizar o comando /vagarits para receber as informações sobre o número de candidatos e o email dos 3 candidatos mais recentes.
+
+# Docker
+
+O Dockerfile e o docker-compose.yml descrevem como subir uma versão em container da
+aplicação.
+
+Porém, dêvido à minha falta de experiência com
+o uso do docker-compose e Dockerfiles em geral, o
+container da aplicação em si não está funcionando,
+embora o container do postgres que está configurado no
+docker-compose esteja sendo criado e funcionando sem
+problemas.
+
+Os arquivos estão dispoíveis no repositório para fins de
+registro.
