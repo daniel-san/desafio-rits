@@ -45,6 +45,7 @@ class CandidateController extends Controller
         request()->validate([
             'name' => 'required',
             'email' => 'required|string|email',
+            'telephone' => 'required|string',
             'motivation' => 'nullable',
             'linkedinUrl' => 'required',
             'githubUrl' => 'required',
@@ -59,6 +60,7 @@ class CandidateController extends Controller
         $candidate = new Candidate();
         $candidate->name = $request->name;
         $candidate->email = $request->email;
+        $candidate->telephone = $request->telephone;
         $candidate->motivation = $request->motivation;
         $candidate->linkedin_url = $request->linkedinUrl;
         $candidate->github_url = $request->githubUrl;

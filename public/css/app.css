@@ -10759,3 +10759,9 @@ a.text-dark:focus {
   font-weight: 600;
 }
 
+.field-error {
+  font-size: 0.6rem;
+  color: red;
+  font-weight: 600;
+}
+

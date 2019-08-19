@@ -78,11 +78,18 @@
                 <div class="col-md-7 mx-auto">
                     <label for="name" class="col-md-6 col-form-label text-md-left">{{ __('Nome Completo') }}</label>
                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                    <span class="field-error" id="name-error"></span>
                 </div>
                 <br>
                 <div class="col-md-7 mx-auto">
                     <label for="email" class="col-md-6 col-form-label text-md-left">{{ __('E-Mail') }}</label>
                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <span class="field-error" id="email-error"></span>
+                </div>
+                <div class="col-md-7 mx-auto">
+                    <label for="telephone" class="col-md-6 col-form-label text-md-left">{{ __('Telefone(com DDD') }}</label>
+                    <input id="telephone" type="telephone" class="form-control" name="telephone" value="{{ old('telephone') }}" required autocomplete="telephone" autofocus>
+                    <span class="field-error" id="telephone-error"></span>
                 </div>
             </div>
 
@@ -99,10 +106,12 @@
                 <div class="col-md-7 mx-auto">
                     <label for="linkedinUrl" class="col-md-6 col-form-label text-md-left">{{ __('Url do seu LinkedIn') }}</label>
                     <input id="linkedinUrl" type="text" class="form-control" name="linkedinUrl" value="{{ old('linkedinUrl') }}" required>
+                    <span class="field-error" id="linkedin-error"></span>
                 </div>
                 <div class="col-md-7 mx-auto">
                     <label for="githubUrl" class="col-md-6 col-form-label text-md-left">{{ __('Url do seu Github') }}</label>
                     <input id="githubUrl" type="text" class="form-control" name="githubUrl" value="{{ old('githubUrl') }}" required>
+                    <span class="field-error" id="github-error"></span>
                 </div>
                 <div class="col-md-7 mx-auto">
                     <label for="english" class="col-md-6 col-form-label text-md-left">{{__('Qual seu nível de Inglês?')}}</label>
@@ -117,6 +126,7 @@
                 <div class="col-md-7 mx-auto">
                     <label for="salary" class="col-md-6 col-form-label text-md-left">{{ __('Pretensão Salarial') }}</label>
                     <input id="salary" type="number" step="0.1" min="0" class="form-control" name="salary" value="{{ old('salary') }}" required placeholder="R$">
+                    <span class="field-error" id="salary-error"></span>
                 </div>
             </div>
 
@@ -156,6 +166,6 @@
     </div>
 </footer>
 @push('scripts')
-    <script src="{{ asset("js/vagaform.js") }}"></script>
+    <script src="{{ asset("js/vagaform.js") }}" defer></script>
 @endpush
 @endsection
