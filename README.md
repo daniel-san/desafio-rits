@@ -120,7 +120,7 @@ através de e-mail.
 Para enviar emails, foi preciso criar um template de emails utilizando o comando:
 
 ```
-php artisan make:mail --markdown=NotifyAdmin
+php artisan make:mail NotifyAdmin --markdown="mail.notify-admin"
 ```
 
 O template de email foi alterado de acordo para exibir os dados referentes ao
@@ -235,7 +235,7 @@ aplicação funcione:
     ```
     * * * * *  cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
     ```
--   Ou caso queira executar o Schedule manualmente:
+-   Ou caso queira executar o Schedule manualmente nos horários específicos:
     ```
     php artisan schedule:run
     ```
